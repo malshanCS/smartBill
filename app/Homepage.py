@@ -15,9 +15,9 @@ st.set_page_config(page_title="Smart Bill Analyzer", page_icon=":money_with_wing
 
 st.markdown("<h2 style='font-size: 70px; text-align: center;'> Smart Bill Analyzer </h2>", unsafe_allow_html=True)
 
-def resize_image(image,image_path, max_size=4 * 1024 * 1024):
+def resize_image(in_image_path,image_path, max_size=4 * 1024 * 1024):
     # Open the image
-    original_image = image
+    original_image = Image.open(in_image_path)
 
     # Get the original image dimensions
     original_width, original_height = original_image.size
@@ -144,10 +144,10 @@ with coll1:
                     # Save the receipt image into the "receipt_images" folder
                     receipt_image_path = os.path.join(receipt_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(img, receipt_image_path)
+                    resize_image(document_path, receipt_image_path)
 
                     # fill progress bar for 75%
                     progress_bar1.progress(75)
@@ -157,10 +157,10 @@ with coll1:
                     # Save the ISP image into the "isp_images" folder
                     isp_image_path = os.path.join(isp_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using resize_image function
-                    resize_image(img, isp_image_path)
+                    resize_image(document_path, isp_image_path)
                     
                     progress_bar1.progress(75)
 
@@ -169,10 +169,10 @@ with coll1:
                     # Save the ISP image into the "isp_images" folder
                     elec_image_path = os.path.join(elec_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(img, elec_image_path)
+                    resize_image(document_path, elec_image_path)
                     progress_bar1.progress(75)
 
 
@@ -180,10 +180,10 @@ with coll1:
                     # Save the ISP image into the "isp_images" folder
                     water_image_path = os.path.join(water_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(img, water_image_path)
+                    resize_image(document_path, water_image_path)
                     progress_bar1.progress(75)
 
 
