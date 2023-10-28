@@ -156,8 +156,8 @@ if st.button('Generate Insight'):
             tickfont=dict(size=14),  # Set y-axis tick label font size
         ),
         font=dict(size=32),
-        width=1200,  # Set the width of the plot
-        height=600,  # Set the height of the plot
+        width=400,  # Set the width of the plot
+        height=300,  # Set the height of the plot
     )
 
     df2 = df1[['year','month', 'bill_amount']]
@@ -194,8 +194,8 @@ if st.button('Generate Insight'):
     # # Update the facet_col parameters to use the facet sizes
     # fig2.update_traces(facet_col=facet_sizes)
     fig2.update_layout(
-    width=1200,  # Set the width of the plot
-    height=600,  # Set the height of the plot
+    width=400,  # Set the width of the plot
+    height=300,  # Set the height of the plot
     margin=dict(l=10, r=10, t=30, b=30)
     )
 

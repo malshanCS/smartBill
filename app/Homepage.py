@@ -15,29 +15,26 @@ st.set_page_config(page_title="Smart Bill Analyzer", page_icon=":money_with_wing
 
 st.markdown("<h2 style='font-size: 70px; text-align: center;'> Smart Bill Analyzer </h2>", unsafe_allow_html=True)
 
-# def load_lottieurl(url: str):
-#     r = requests.get(url)
-#     if r.status_code != 200:
-#         return None
-#     return r.json()
+def resize_image(image,image_path, max_size=4 * 1024 * 1024):
+    # Open the image
+    original_image = image
 
+    # Get the original image dimensions
+    original_width, original_height = original_image.size
 
+    # Calculate the new width and height to reduce the size
+    new_width = original_width
+    new_height = original_height
 
-# lottie_receipt = load_lottieurl('https://lottie.host/9e08a462-f5a2-4c4c-833e-3ab6070d5ff5/tfTYo0aarO.json')
-# lottie_arrow = load_lottieurl("https://lottie.host/d762e672-e9d3-41ec-a371-94951537446c/BWrTQeoxAE.json")
-# lottie_insights = load_lottieurl("https://lottie.host/83dd7e7a-c08e-462e-ae0c-3ae133206d41/UbC0LR1UEe.json")
+    while new_width * new_height * original_image.mode.bit_length() > max_size:
+        new_width = int(new_width * 0.9)
+        new_height = int(new_height * 0.9)
 
+    # Resize the image
+    resized_image = original_image.resize((new_width, new_height))
 
-# col1, col2, col3 = st.columns(3)
-
-# with col1:
-#     st_lottie(lottie_receipt, speed=1, height=300, width=500, key="initial")
-
-# with col2:
-#     st_lottie(lottie_arrow, speed=1, height=300, width=500, key="initial2")
-
-# with col3:
-#     st_lottie(lottie_insights, speed=1, height=300, width=500, key="initial3")
+    # save the imahe in the specified path
+    resized_image.save(image_path)
 
 
 endpoint = "https://doc-intelli-instance.cognitiveservices.azure.com/"
@@ -150,7 +147,7 @@ with coll1:
                     img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(receipt_image_path)
+                    resize_image(img, receipt_image_path)
 
                     # fill progress bar for 75%
                     progress_bar1.progress(75)
@@ -162,8 +159,9 @@ with coll1:
                     # Open the image using Pillow
                     img = Image.open(document_path)
 
-                    # Save the image using Pillow
-                    img.save(isp_image_path)
+                    # Save the image using resize_image function
+                    resize_image(img, isp_image_path)
+                    
                     progress_bar1.progress(75)
 
                 
@@ -174,7 +172,7 @@ with coll1:
                     img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(elec_image_path)
+                    resize_image(img, elec_image_path)
                     progress_bar1.progress(75)
 
 
@@ -185,7 +183,7 @@ with coll1:
                     img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(water_image_path)
+                    resize_image(img, water_image_path)
                     progress_bar1.progress(75)
 
 
