@@ -5,8 +5,8 @@ import subprocess
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from PIL import Image
-from streamlit_lottie import st_lottie
-from streamlit_lottie import st_lottie_spinner
+# from streamlit_lottie import st_lottie
+# from streamlit_lottie import st_lottie_spinner
 import requests
 import time 
 import streamlit.components.v1 as components
@@ -15,29 +15,29 @@ st.set_page_config(page_title="Smart Bill Analyzer", page_icon=":money_with_wing
 
 st.markdown("<h2 style='font-size: 70px; text-align: center;'> Smart Bill Analyzer </h2>", unsafe_allow_html=True)
 
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+# def load_lottieurl(url: str):
+#     r = requests.get(url)
+#     if r.status_code != 200:
+#         return None
+#     return r.json()
 
 
 
-lottie_receipt = load_lottieurl('https://lottie.host/9e08a462-f5a2-4c4c-833e-3ab6070d5ff5/tfTYo0aarO.json')
-lottie_arrow = load_lottieurl("https://lottie.host/d762e672-e9d3-41ec-a371-94951537446c/BWrTQeoxAE.json")
-lottie_insights = load_lottieurl("https://lottie.host/83dd7e7a-c08e-462e-ae0c-3ae133206d41/UbC0LR1UEe.json")
+# lottie_receipt = load_lottieurl('https://lottie.host/9e08a462-f5a2-4c4c-833e-3ab6070d5ff5/tfTYo0aarO.json')
+# lottie_arrow = load_lottieurl("https://lottie.host/d762e672-e9d3-41ec-a371-94951537446c/BWrTQeoxAE.json")
+# lottie_insights = load_lottieurl("https://lottie.host/83dd7e7a-c08e-462e-ae0c-3ae133206d41/UbC0LR1UEe.json")
 
 
-col1, col2, col3 = st.columns(3)
+# col1, col2, col3 = st.columns(3)
 
-with col1:
-    st_lottie(lottie_receipt, speed=1, height=300, width=500, key="initial")
+# with col1:
+#     st_lottie(lottie_receipt, speed=1, height=300, width=500, key="initial")
 
-with col2:
-    st_lottie(lottie_arrow, speed=1, height=300, width=500, key="initial2")
+# with col2:
+#     st_lottie(lottie_arrow, speed=1, height=300, width=500, key="initial2")
 
-with col3:
-    st_lottie(lottie_insights, speed=1, height=300, width=500, key="initial3")
+# with col3:
+#     st_lottie(lottie_insights, speed=1, height=300, width=500, key="initial3")
 
 
 endpoint = "https://doc-intelli-instance.cognitiveservices.azure.com/"
