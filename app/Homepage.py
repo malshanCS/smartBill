@@ -15,7 +15,9 @@ st.set_page_config(page_title="Smart Bill Analyzer", page_icon=":money_with_wing
 
 st.markdown("<h2 style='font-size: 70px; text-align: center;'> Smart Bill Analyzer </h2>", unsafe_allow_html=True)
 
-def resize_image(in_image_path,image_path, max_size=4 * 1024 * 1024):
+from PIL import Image
+
+def resize_image(in_image_path, image_path, max_size=4 * 1024 * 1024):
     # Open the image
     original_image = Image.open(in_image_path)
 
@@ -26,14 +28,17 @@ def resize_image(in_image_path,image_path, max_size=4 * 1024 * 1024):
     new_width = original_width
     new_height = original_height
 
-    while new_width * new_height * original_image.mode.bit_length() > max_size:
+    # Calculate the number of channels (assuming 8 bits per channel)
+    num_channels = len(original_image.getbands())
+
+    while new_width * new_height * num_channels * 8 > max_size:
         new_width = int(new_width * 0.9)
         new_height = int(new_height * 0.9)
 
     # Resize the image
-    resized_image = original_image.resize((new_width, new_height))
+    resized_image = original_image.resize((new_width, new_height), Image.LANCZOS)
 
-    # save the imahe in the specified path
+    # Save the resized image
     resized_image.save(image_path)
 
 
@@ -104,6 +109,7 @@ st.write(
 
 
 
+max_size = 4 * 1024 * 1024
 
 coll1, coll2= st.columns(2)
 
@@ -147,7 +153,7 @@ with coll1:
                     # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(document_path, receipt_image_path)
+                    resize_image(document_path, receipt_image_path,max_size)
 
                     # fill progress bar for 75%
                     progress_bar1.progress(75)
@@ -160,7 +166,7 @@ with coll1:
                     # img = Image.open(document_path)
 
                     # Save the image using resize_image function
-                    resize_image(document_path, isp_image_path)
+                    resize_image(document_path, isp_image_path,max_size)
                     
                     progress_bar1.progress(75)
 
@@ -172,7 +178,7 @@ with coll1:
                     # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(document_path, elec_image_path)
+                    resize_image(document_path, elec_image_path,max_size)
                     progress_bar1.progress(75)
 
 
@@ -183,7 +189,7 @@ with coll1:
                     # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    resize_image(document_path, water_image_path)
+                    resize_image(document_path, water_image_path,max_size)
                     progress_bar1.progress(75)
 
 
@@ -251,38 +257,45 @@ with coll2:
                     # Save the receipt image into the "receipt_images" folder
                     receipt_image_path = os.path.join(receipt_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(receipt_image_path)
+                    # img.save(receipt_image_path)
+                    resize_image(document_path, receipt_image_path,max_size)
+                    progress_bar2.progress(75)
 
 
                 elif doc_type == "isp":
                     # Save the ISP image into the "isp_images" folder
                     isp_image_path = os.path.join(isp_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(isp_image_path)
+                    # img.save(isp_image_path)
+                    resize_image(document_path, isp_image_path,max_size)
+                    progress_bar2.progress(75)
                 
                 elif doc_type == "electricity_bill":
                     # Save the ISP image into the "isp_images" folder
                     elec_image_path = os.path.join(elec_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(elec_image_path)
+                    # img.save(elec_image_path)
+                    resize_image(document_path, elec_image_path,max_size)
 
                 elif doc_type == 'water_bill':
                     # Save the ISP image into the "isp_images" folder
                     water_image_path = os.path.join(water_path, single_process_image)
                     # Open the image using Pillow
-                    img = Image.open(document_path)
+                    # img = Image.open(document_path)
 
                     # Save the image using Pillow
-                    img.save(water_image_path)
+                    # img.save(water_image_path)
+                    resize_image(document_path, water_image_path,max_size)
+                    progress_bar2.progress(75)
             else:
                 st.markdown(f"No document type found for {single_process_image}")
 
