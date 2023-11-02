@@ -262,6 +262,7 @@ if st.button('Generate Insight'):
         year = pd.to_datetime(last_month).strftime('%Y')
 
         last_month_data = df3[df3['year-month'] == last_month]
+        st.dataframe(last_month_data, use_container_width=True)
 
         previous_month = (pd.to_datetime(last_month) - pd.DateOffset(months=1)).strftime('%Y-%m')
         previous_month_data = df[df['year-month'] == previous_month]
@@ -272,7 +273,7 @@ if st.button('Generate Insight'):
 
 
         # Create a Streamlit metric to display the comparison
-        st.markdown("Money Spent Comparison Per ISP")
+        st.markdown("<h1 style='font-size: 25px;'>Money Spent this month!</h1>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
 
         for isp in last_month_data['ISP'].unique():
@@ -307,7 +308,7 @@ if st.button('Generate Insight'):
             names=average_expenditure.index,
             color=average_expenditure.index,
             color_discrete_map=color_scale,
-            title="Average Monthly Expenditure per ISP",
+        
         )
 
         # Display the pie graph in the Streamlit app

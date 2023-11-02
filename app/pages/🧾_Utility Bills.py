@@ -147,7 +147,7 @@ if st.button('Generate Insights'):
 
     # fill unknown values with 2023-row number
     # df['year-month'] = df['year-month'].replace('unknown', '2023-'+f"{df.index}")
-
+    
 
     # replace all punctuations in amount column with .
     df['amount'] = df['amount'].str.replace(',', '.')
@@ -168,6 +168,10 @@ if st.button('Generate Insights'):
 
     # replace electricity with Electricity
     df['type'] = df['type'].replace('electricity', 'Electricity')
+
+    df['type'] = df['type'].replace('water', 'Water')
+
+    st.dataframe(df, use_container_width=True)
 
     # draw a pie chart
     fig = px.pie(df, values='amount', names='type', title='Utility Bills')

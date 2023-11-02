@@ -142,6 +142,8 @@ if st.button('Generate Insight'):
                 align='left'))
     ])
 
+
+
     # Display the Plotly Table in the Streamlit app
     st.plotly_chart(fig)
 
@@ -178,6 +180,8 @@ if st.button('Generate Insight'):
 
     most_recent_years = df2['Year'].unique()[-4:]
     df_most_recent = df2[df2['Year'].isin(most_recent_years)]
+
+    # st.dataframe(df_most_recent)
     
 
     # Create the area plots
@@ -194,7 +198,7 @@ if st.button('Generate Insight'):
 
     fig2.update_layout(
     width=1000,  # Set the width of the plot
-    height=300,  # Set the height of the plot
+    height=800,  # Set the height of the plot
     margin=dict(l=100, r=100, t=30, b=30)
     )
 
@@ -208,6 +212,11 @@ if st.button('Generate Insight'):
 
     # Render the Markdown content
     st.markdown(markdown_text, unsafe_allow_html=True)
+    fig.update_layout(
+    width=1000,  # Set the width of the plot
+    height=300,  # Set the height of the plot
+    margin=dict(l=100, r=100, t=30, b=30)
+    )
     st.plotly_chart(fig)
     # Add custom CSS styles
     st.markdown(
