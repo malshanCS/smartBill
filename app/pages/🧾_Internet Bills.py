@@ -21,6 +21,7 @@ import streamlit.components.v1 as components
 
 
 
+
 st.set_page_config(page_title="Internet Bills", page_icon=":earth_americas:")
 
 st.markdown("<h2 style='font-size: 40px; text-align: center;'> Analyze your Internet bills!! </h2>", unsafe_allow_html=True)

@@ -11,6 +11,8 @@ import requests
 import time 
 import streamlit.components.v1 as components
 
+
+
 st.set_page_config(page_title="Smart Bill Analyzer", page_icon=":money_with_wings:")
 
 st.markdown("<h2 style='font-size: 70px; text-align: center;'> Smart Bill Analyzer </h2>", unsafe_allow_html=True)

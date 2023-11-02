@@ -13,9 +13,12 @@ from azure.ai.formrecognizer import FormRecognizerClient
 import mimetypes 
 import pandas_bokeh
 
+from google.cloud import firestore
 
-
-
+# Initialize the Firestore client
+def get_db():
+    db = firestore.Client.from_service_account_json("key1.json")
+    return db   
 
 credentials = json.load(open('../credentials.json'))
 
@@ -47,6 +50,18 @@ st.write(
 
 
 st.title("Receipts")
+
+# Define a function to add data to Firestore
+def add_data_to_firestore(img_path, bill_type, bill_date, bill_amount):
+    db = get_db()
+    doc_ref = db.collection("output_form").document()
+    doc_ref.set({
+        "img_path": img_path,
+        "bill_type": bill_type,
+        "bill_date": bill_date,
+        "bill_amount": bill_amount
+    })
+
 
 # Define a function to run the external script
 def run_receipt_script():
@@ -93,8 +108,12 @@ def run_receipt_script():
                             elif name == 'ReceiptType':
                                 bill_type = field.value
 
-                    new_row = {'img_path': img_path, 'bill_type': bill_type, 'bill_date': date, 'bill_amount': total}
-                    df.loc[len(df)] = new_row
+                    # new_row = {'img_path': img_path, 'bill_type': bill_type, 'bill_date': date, 'bill_amount': total}
+                    # df.loc[len(df)] = new_row
+                    # processed_images.add(img_path)
+
+                    # Add data to Firestore
+                    add_data_to_firestore(img_path, bill_type, date, total)
                     processed_images.add(img_path)
 
     # save the df as a csv file
